@@ -58,8 +58,7 @@ export default function App() {
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
-      <Grid item xs={false} sm={4} md={7}><Map /></Grid>
-      <Grid item xs={12} sm={8} md={5}>
+      <Grid item xs={12} sm={8} md={6}>
         <div className={classes.paper}>
           <Avatar className={classes.avatar}>
             <DirectionsRunIcon />
@@ -125,6 +124,7 @@ export default function App() {
           </form> */}
         </div>
       </Grid>
+      <Grid item xs={false} sm={4} md={6}><Map /></Grid>
     </Grid>
   );
 }

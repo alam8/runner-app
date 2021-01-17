@@ -1,6 +1,5 @@
 import React from 'react'
-import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
-// import './Map.css'
+import { GoogleMap, useJsApiLoader, Polyline } from '@react-google-maps/api';
 
 const containerStyle = {
     height: '100vh',
@@ -9,14 +8,14 @@ const containerStyle = {
 };
 
 const center = {
-  lat: -3.745,
-  lng: -38.523
+  lat: 38.539806488648885,
+  lng: -121.76160229332712
 };
 
 function MyComponent() {
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
-    googleMapsApiKey: "YOUR_API_KEY"
+    googleMapsApiKey: "AIzaSyC6WETwHzQzM1N2x-68C1gOcP3Lgi2A0wU"
   })
 
   const [map, setMap] = React.useState(null)
@@ -27,6 +26,10 @@ function MyComponent() {
     setMap(map)
   }, [])
 
+  function handleLoad(map) {
+    map.current = map;
+  }
+
   const onUnmount = React.useCallback(function callback(map) {
     setMap(null)
   }, [])
@@ -35,12 +38,21 @@ function MyComponent() {
       <GoogleMap
         mapContainerStyle={containerStyle}
         center={center}
-        zoom={10}
-        onLoad={onLoad}
+        zoom={14}
+        onLoad={handleLoad}
         onUnmount={onUnmount}
       >
         { /* Child components, such as markers, info windows, etc. */ }
         <></>
+        {/* <Polyline
+          path={pathCoordinates}
+          geodesic={true}
+          options={{
+              strokeColor: "#ff2527",
+              strokeOpacity: 0.75,
+              strokeWeight: 2,
+          }}
+        /> */}
       </GoogleMap>
   ) : <></>
 }
