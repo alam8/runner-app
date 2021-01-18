@@ -1,5 +1,7 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { GoogleMap, useJsApiLoader, Polyline } from '@react-google-maps/api';
+import 'leaflet/dist/leaflet.css';
+import { MapContainer, TileLayer, Marker, Popup } from 'leaflet';
 
 const containerStyle = {
     height: '100vh',
@@ -34,7 +36,30 @@ function MyComponent() {
     setMap(null)
   }, [])
 
+  const [pathCoordinates, setPath] = useState(null);
+
+  useEffect(() => {
+    fetch('/path').then(res => res.json()).then(data => {
+      setPath(data.path);
+    });
+  }, []);
+
   return isLoaded ? (
+      // <MapContainer
+      //   center={[51.505, -0.09]}
+      //   zoom={1}
+      //   style={{ height: '100vh', width: '100vh' }}
+      //   >
+      //   <TileLayer
+      //     attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+      //     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+      //   />
+      //   <Marker position={[51.505, -0.09]}>
+      //     <Popup>
+      //       A pretty CSS3 popup. <br /> Easily customizable.
+      //     </Popup>
+      //   </Marker>
+      // </MapContainer>
       <GoogleMap
         mapContainerStyle={containerStyle}
         center={center}
@@ -44,7 +69,7 @@ function MyComponent() {
       >
         { /* Child components, such as markers, info windows, etc. */ }
         <></>
-        {/* <Polyline
+        <Polyline
           path={pathCoordinates}
           geodesic={true}
           options={{
@@ -52,8 +77,8 @@ function MyComponent() {
               strokeOpacity: 0.75,
               strokeWeight: 2,
           }}
-        /> */}
-      </GoogleMap>
+        />
+        </GoogleMap>
   ) : <></>
 }
 
